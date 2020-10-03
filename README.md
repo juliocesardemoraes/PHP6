@@ -1,5 +1,6 @@
 # PHP-G6
 <h3>Aviso: Para rodar é necessário adaptar o arquivo conexão.php com seus dados</h3>
+<h3>Alem do uso do xampp ou algo a mais para rodar os arquivos</h3>
 <br>
 <h1>Trabalho de PHP</h1>
 <h3>1- O crud da tabela pessoas está feito.</h3> 
