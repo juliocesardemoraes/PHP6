@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SysPacientes - Lista de usuários</title>
+    <link rel="icon" href="img/favicon/favicon2.ico">
+    <script src="js/jquery.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sweetalert2.css">
+    <script src="js/sweetalert2.js"></script>
+   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <a class="navbar-brand" href="#">SysPacientes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="admin.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+              <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastros</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                  <a class="dropdown-item" href="pessoas_list.php">Cadastro de pessoas</a>
+                  <a class="dropdown-item" href="usuario_list2.php">Cadastro de usuários</a>                
+                  <a class="dropdown-item" href="#">Cadastro de pacientes</a>
+                </div>
+              </li>
+            
+          </ul>  
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  NOME DO FULANO
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown10">
+                <a class="dropdown-item" href="minhaconta.php">Minha conta</a>
+                <a class="dropdown-item" href="logout.php">Sair</a>                 
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Lista de pacientes</h1>
+        <hr>
+         <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+               <a class="nav-link active" id="get-tab" data-toggle="tab" href="#get" role="tab" aria-controls="get" aria-selected="true">GET</a>
+               <a class="nav-link" id="post-tab" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="false">POST</a>               
+            </div>
+         </nav>
+         <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="get" role="tabpanel" aria-labelledby="get-tab">               
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th scope="col">idPessoa</th>
+                        <th scope="col">Dt entrada</th>
+                        <th scope="col">Comorbidade</th>
+                        <th scope="col">Grau</th>
+                        <th scope="col">...</th>
+                     </tr>
+                  </thead>
+                  <tbody id="bodyTable" name="bodyTable">                          
+                  </tbody>
+               </table>  
+               <br>
+               <a class='btn btn-lg btn-primary' href='javascript:buscarDados2()' role='button'>Buscar dados</a>
+               <a class='btn btn-lg btn-danger'  href='javascript:limparTabela()' role='button'>Limpar tabela</a>
+            </div>
+            <div class="tab-pane fade" id="post" role="tabpanel" aria-labelledby="post-tab">
+               <form>
+                  <div class="form-group">
+                     <label for="inputIdPessoa">ID Pessoa:</label>
+                     <input type="number" class="form-control" id="inputIdPessoa" 
+                           name="inputIdPessoa" placeholder="Id pessoa">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputDtEntrada">Dt Entrada:</label>
+                     <input type="text" class="form-control" id="inputDtEntrada" 
+                           name="inputDtEntrada" placeholder="Dt entrada">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputComorbidade">Comorbidade:</label>
+                     <input type="text" class="form-control" id="inputComorbidade" 
+                           name="inputComorbidade" placeholder="Comorbidade">
+                  </div>
+                  <div class="form-group">
+                     <label for="inputGrau">Grau:</label>
+                     <input type="number" class="form-control" id="inputGrau" 
+                           name="inputGrau" placeholder="Grau">
+                  </div>
+                  <a class='btn btn-lg btn-success' href='javascript:gravarDados()' role='button'>Gravar</a>
+               </form>
+            </div>
+         </div>            
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.4.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      function excluirPaciente(idPaciente){
+         alert(idPaciente);
+      }
+      function gravarDados(){
+         var IdPessoa    = document.getElementById("inputIdPessoa").value;
+         var DataEntrada = document.getElementById("inputDtEntrada").value;
+         var Comorbidade = document.getElementById("inputComorbidade").value;
+         var Grau        = document.getElementById("inputGrau").value;
+         var validou     = true;
+         var mensagem    = "";
+         
+         //validações:
+         if(IdPessoa.length == 0){
+            mensagem = "Digite o id da Pessoa";
+            validou = false;
+         }
+         if(DataEntrada.length == 0 && validou){
+            mensagem = "Digite a data de entrada";
+            validou = false;
+         }
+         if(Comorbidade.length == 0 && validou){
+            mensagem = "Digite a comorbidade do paciente";
+            validou = false;
+         }
+         if(Grau.length == 0 && validou){
+            mensagem = "Digite o grau do paciente";
+            validou = false;
+         }
+         if(validou){
+            //envio
+            IdPessoa = parseInt(IdPessoa);
+            Grau     = parseInt(Grau);
+            var paciente = {
+               idPessoa: IdPessoa,
+               data_entrada: DataEntrada,
+               comorbidade: Comorbidade,
+               grau: Grau
+            }
+            $.ajax({
+               url: "https://localhost:5001/api/pacientes",
+               type: "POST",
+               dataType: "json",
+               contentType: "application/json",
+               data: JSON.stringify(paciente),
+               success: function(data){
+                  Swal.fire(
+                     'Gravação',
+                     'Dados gravados com sucesso!',
+                     'success'
+                  );
+               },
+               error: function(data){
+                  Swal.fire({
+                     icon: 'error',
+                     title: 'Erro ao gravar',
+                     text: 'Ocorreu algum erro na gravação!'
+                  });
+               }
+            });
+         }else{
+            //msm erro
+            Swal.fire({
+               icon: 'error',
+               title: 'Erro ao validar',
+               text: mensagem
+            });
+         }
+      }
+
+      function limparTabela(){
+         $('#bodyTable').empty();
+      }
+      function buscarDados2(){
+         $.getJSON("https://localhost:5001/api/pacientes", function(data){
+            for(var i = 0; i < data.length; i++){
+               var tr = $('<tr/>');               
+               $(tr).append("<td>" + data[i].idPessoa     + "</td>");
+               $(tr).append("<td>" + data[i].data_entrada + "</td>");
+               $(tr).append("<td>" + data[i].comorbidade  + "</td>");
+               $(tr).append("<td>" + data[i].grau         + "</td>");
+               $(tr).append("<td><a class='btn btn-danger' href='javascript:excluirPaciente(" + data[i].id + ")' role='button'>Excluir</a></td>");
+               $('#bodyTable').append(tr);
+            }
+         });
+      }
+
+      function buscarDados(){
+         $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "https://localhost:5001/api/pacientes",
+            success: function(data){
+               //var json = $.parseJSON(data);
+               console.log(data);
+            }
+         }).fail(
+            function(jqXHR, exception){
+               var msg = "";
+               if(jqXHR.status === 0){
+                  msg = "Não conectado.\n Verifique a sua rede";
+               }else if(jqXHR.status === 413){
+                  msg = "Tamanho da imagem grande.";
+               }else if(jqXHR.status === 404){
+                  msg = "Página não encontrada";
+               }else if(jqXHR.status === 500){
+                  msg = "Erro interno do servidor";
+               }else if(jqXHR.status === 200){
+                  msg = "Consulta efetuada com sucesso!";
+               }
+               else if(exception === 'parseerror'){
+                  msg = "Parse do JSON falhou!";
+               }else if(exception === 'timeout'){
+                  msg = "Erro de TimeOut";
+               }else if(exception === 'abort'){
+                  msg = "Requisição abortada";
+               }else{
+                  msg = "Erro desconhecido: " + jqXHR.responseText;
+               }
+               console.log(msg);
+            }
+         );
+      }
+    </script>
+</body>
+</html>
